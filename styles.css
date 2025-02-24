@@ -1,0 +1,36 @@
+@import url(https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css);
+/* Custom Styles */
+@layer base {
+    /* Ensure all elements have a consistent box-sizing */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    /* Set a consistent font family for the entire site */
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+}
+
+@layer components {
+    /* Custom button styles */
+    .btn-primary {
+        @apply bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600;
+    }
+
+    /* Custom card component */
+    .card {
+        @apply bg-white p-6 rounded-lg shadow-md;
+    }
+}
+
+@layer utilities {
+    /* Custom utility for large container width */
+    .container-lg {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
