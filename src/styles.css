@@ -150,7 +150,7 @@ nav {
     font-size: 1rem;
 }
 
-/* Features Section */
+
 .features {
     padding: 5rem 0;
 }
@@ -211,7 +211,6 @@ nav {
     font-size: 1.5rem;
 }
 
-/* Opportunities Section */
 .opportunities {
     padding: 5rem 0;
     background-color: white;
@@ -270,7 +269,6 @@ nav {
     margin-bottom: 0.5rem;
 }
 
-/* Testimonials Section */
 .testimonials {
     padding: 5rem 0;
     background-color: #f9f9f9;
@@ -316,7 +314,6 @@ nav {
     font-size: 0.9rem;
 }
 
-/* Call to Action */
 .cta {
     padding: 5rem 0;
     background-color: var(--primary);
@@ -360,7 +357,6 @@ nav {
     color: var(--primary);
 }
 
-/* Footer */
 footer {
     background-color: var(--dark);
     color: white;
@@ -434,7 +430,6 @@ footer {
     color: #ccc;
 }
 
-/* Additional Styles for Login Page */
 .login-container {
     max-width: 450px;
     margin: 5rem auto;
@@ -550,8 +545,6 @@ footer {
     margin-top: 1.5rem;
 }
 
-
-/* Responsive Styles */
 @media (max-width: 768px) {
     .nav-links, .nav-buttons {
         display: none;
