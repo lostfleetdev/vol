@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Dashboard | GreenHelp</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Green<span>Help</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="#" class="active">Dashboard</a>
+                    <a href="#">Events</a>
+                    <a href="#">Organizations</a>
+                </div>
+                <div class="cta-buttons">
+                    <div class="user-profile-mini">
+                        <img src="/api/placeholder/40/40" alt="Profile" class="profile-pic-mini">
+                        <span>Welcome, Jane</span>
+                    </div>
+                    <button class="btn btn-outline"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Main Content -->
+    <div class="dashboard-container container">
+        <!-- Dashboard Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="user-profile">
+                <div class="profile-header">
+                    <img src="/api/placeholder/120/120" alt="Profile Picture" class="profile-pic">
+                    <h2>Jane Doe</h2>
+                    <p>Environmental Enthusiast</p>
+                    <div class="volunteer-stats">
+                        <div class="stat">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">Events</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">36</span>
+                            <span class="stat-label">Hours</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">4</span>
+                            <span class="stat-label">Badges</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>Level Progress</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="badges-section">
+                    <h3>Earned Badges</h3>
+                    <div class="badges-grid">
+                        <div class="badge">
+                            <i class="fas fa-seedling"></i>
+                            <span>Tree Planter</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <span>Caregiver</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-users"></i>
+                            <span>Team Player</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-star"></i>
+                            <span>Rising Star</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>My Events</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                    <span class="badge-count">3</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content">
+            <div class="dashboard-header">
+                <h1>Volunteer Dashboard</h1>
+                <div class="filter-options">
+                    <select class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="environment">Environment</option>
+                        <option value="education">Education</option>
+                        <option value="health">Health & Wellness</option>
+                        <option value="animal">Animal Welfare</option>
+                    </select>
+                    <button class="btn btn-outline">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+            </div>
+
+            <!-- Status Cards -->
+            <div class="status-cards-grid">
+                <div class="status-card">
+                    <div class="status-card-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="status-card-info">
+                        <h3>Upcoming Events</h3>
+                        <p class="status-value">3</p>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-card-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="status-card-info">
+                        <h3>Pending Applications</h3>
+                        <p class="status-value">2</p>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-card-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="status-card-info">
+                        <h3>Impact Points</h3>
+                        <p class="status-value">256</p>
+                    </div>
+                </div>
+                <div class="status-card">
+                    <div class="status-card-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="status-card-info">
+                        <h3>Volunteer Rank</h3>
+                        <p class="status-value">Silver</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Queue Section -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Your Event Queue</h2>
+                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="event-queue">
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="month">Apr</span>
+                            <span class="day">20</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>City Park Cleanup</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Central Park</span>
+                                <span><i class="fas fa-clock"></i> 9:00 AM - 12:00 PM</span>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag">Environment</span>
+                                <span class="tag">Community</span>
+                            </div>
+                        </div>
+                        <div class="event-status confirmed">
+                            <span>Confirmed</span>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="month">Apr</span>
+                            <span class="day">25</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>Food Bank Distribution</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Community Center</span>
+                                <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag">Hunger Relief</span>
+                                <span class="tag">Humanitarian</span>
+                            </div>
+                        </div>
+                        <div class="event-status pending">
+                            <span>Pending</span>
+                        </div>
+                    </div>
+
+                    <div class="event-item">
+                        <div class="event-date">
+                            <span class="month">May</span>
+                            <span class="day">03</span>
+                        </div>
+                        <div class="event-details">
+                            <h3>Tree Planting Initiative</h3>
+                            <div class="event-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Riverside Park</span>
+                                <span><i class="fas fa-clock"></i> 10:00 AM - 2:00 PM</span>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag">Environment</span>
+                                <span class="tag">Sustainability</span>
+                            </div>
+                        </div>
+                        <div class="event-status pending">
+                            <span>Pending</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nearby Events Section -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Nearby Events</h2>
+                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="events-grid">
+                    <div class="opportunity-card">
+                        <div class="opportunity-img">
+                            <img src="/api/placeholder/300/200" alt="Beach Cleanup">
+                        </div>
+                        <div class="opportunity-content">
+                            <h3>Beach Cleanup Drive</h3>
+                            <div class="opportunity-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Seaside Beach</span>
+                                <span><i class="fas fa-calendar"></i> May 10</span>
+                            </div>
+                            <p>Join us for a community beach cleanup to remove plastic waste and debris.</p>
+                            <div class="tags-container">
+                                <span class="tag">Environment</span>
+                                <span class="tag">Coastal</span>
+                            </div>
+                            <button class="btn btn-primary apply-btn">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="opportunity-card">
+                        <div class="opportunity-img">
+                            <img src="/api/placeholder/300/200" alt="Senior Care">
+                        </div>
+                        <div class="opportunity-content">
+                            <h3>Senior Care Visit</h3>
+                            <div class="opportunity-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Golden Years Home</span>
+                                <span><i class="fas fa-calendar"></i> May 12</span>
+                            </div>
+                            <p>Spend time with elderly residents, helping with activities and providing companionship.</p>
+                            <div class="tags-container">
+                                <span class="tag">Healthcare</span>
+                                <span class="tag">Elderly</span>
+                            </div>
+                            <button class="btn btn-primary apply-btn">Apply Now</button>
+                        </div>
+                    </div>
+                    
+                    <div class="opportunity-card">
+                        <div class="opportunity-img">
+                            <img src="/api/placeholder/300/200" alt="Animal Shelter">
+                        </div>
+                        <div class="opportunity-content">
+                            <h3>Animal Shelter Assistance</h3>
+                            <div class="opportunity-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> Happy Paws Shelter</span>
+                                <span><i class="fas fa-calendar"></i> May 15</span>
+                            </div>
+                            <p>Help care for shelter animals, including walking, feeding, and socialization.</p>
+                            <div class="tags-container">
+                                <span class="tag">Animal Welfare</span>
+                                <span class="tag">Care</span>
+                            </div>
+                            <button class="btn btn-primary apply-btn">Apply Now</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Recent Activity</h2>
+                </div>
+                <div class="activity-feed">
+                    <div class="activity-item">
+                        <div class="activity-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Application Approved</strong> - Your application for "Youth Mentoring Program" has been approved</p>
+                            <span class="activity-time">2 hours ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon info">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Badge Earned</strong> - You've earned the "Team Player" badge</p>
+                            <span class="activity-time">Yesterday</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Event Reminder</strong> - "City Park Cleanup" is coming up in 3 days</p>
+                            <span class="activity-time">2 days ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Application Submitted</strong> - You've applied for "Food Bank Distribution"</p>
+                            <span class="activity-time">3 days ago</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Dashboard Widgets Sidebar -->
+        <aside class="dashboard-widgets">
+            <div class="widget calendar-widget">
+                <h3>Upcoming Schedule</h3>
+                <div class="mini-calendar">
+                    <div class="month-selector">
+                        <button class="month-nav"><i class="fas fa-chevron-left"></i></button>
+                        <span>April 2025</span>
+                        <button class="month-nav"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="mini-cal-grid">
+                        <div class="cal-day-header">Su</div>
+                        <div class="cal-day-header">Mo</div>
+                        <div class="cal-day-header">Tu</div>
+                        <div class="cal-day-header">We</div>
+                        <div class="cal-day-header">Th</div>
+                        <div class="cal-day-header">Fr</div>
+                        <div class="cal-day-header">Sa</div>
+                        
+                        <div class="cal-day inactive">30</div>
+                        <div class="cal-day inactive">31</div>
+                        <div class="cal-day">1</div>
+                        <div class="cal-day">2</div>
+                        <div class="cal-day">3</div>
+                        <div class="cal-day">4</div>
+                        <div class="cal-day">5</div>
+                        <div class="cal-day">6</div>
+                        <div class="cal-day">7</div>
+                        <div class="cal-day">8</div>
+                        <div class="cal-day">9</div>
+                        <div class="cal-day">10</div>
+                        <div class="cal-day">11</div>
+                        <div class="cal-day">12</div>
+                        <div class="cal-day">13</div>
+                        <div class="cal-day">14</div>
+                        <div class="cal-day">15</div>
+                        <div class="cal-day">16</div>
+                        <div class="cal-day today">17</div>
+                        <div class="cal-day">18</div>
+                        <div class="cal-day">19</div>
+                        <div class="cal-day has-event">20</div>
+                        <div class="cal-day">21</div>
+                        <div class="cal-day">22</div>
+                        <div class="cal-day">23</div>
+                        <div class="cal-day">24</div>
+                        <div class="cal-day has-event">25</div>
+                        <div class="cal-day">26</div>
+                        <div class="cal-day">27</div>
+                        <div class="cal-day">28</div>
+                        <div class="cal-day">29</div>
+                        <div class="cal-day">30</div>
+                        <div class="cal-day inactive">1</div>
+                        <div class="cal-day inactive">2</div>
+                        <div class="cal-day inactive">3</div>
+                    </div>
+                </div>
+                <div class="calendar-events">
+                    <div class="cal-event">
+                        <div class="event-dot"></div>
+                        <div class="event-info">
+                            <p class="event-title">City Park Cleanup</p>
+                            <p class="event-time">Apr 20, 9:00 AM</p>
+                        </div>
+                    </div>
+                    <div class="cal-event">
+                        <div class="event-dot"></div>
+                        <div class="event-info">
+                            <p class="event-title">Food Bank Distribution</p>
+                            <p class="event-time">Apr 25, 2:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget leaderboard-widget">
+                <h3>Top Volunteers</h3>
+                <div class="leaderboard-list">
+                    <div class="leaderboard-item">
+                        <div class="rank">1</div>
+                        <div class="user-info">
+                            <img src="/api/placeholder/30/30" alt="User" class="user-avatar">
+                            <span>Michael R.</span>
+                        </div>
+                        <div class="points">532 pts</div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank">2</div>
+                        <div class="user-info">
+                            <img src="/api/placeholder/30/30" alt="User" class="user-avatar">
+                            <span>Sarah T.</span>
+                        </div>
+                        <div class="points">489 pts</div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank">3</div>
+                        <div class="user-info">
+                            <img src="/api/placeholder/30/30" alt="User" class="user-avatar">
+                            <span>David L.</span>
+                        </div>
+                        <div class="points">451 pts</div>
+                    </div>
+                    <div class="leaderboard-item current-user">
+                        <div class="rank">7</div>
+                        <div class="user-info">
+                            <img src="/api/placeholder/30/30" alt="User" class="user-avatar">
+                            <span>Jane D. (You)</span>
+                        </div>
+                        <div class="points">256 pts</div>
+                    </div>
+                </div>
+                <a href="#" class="view-leaderboard">View Full Leaderboard</a>
+            </div>
+            
+            <div class="widget ngo-spotlight">
+                <h3>Organization Spotlight</h3>
+                <div class="ngo-card">
+                    <img src="/api/placeholder/280/140" alt="EcoAction Foundation" class="ngo-image">
+                    <h4>EcoAction Foundation</h4>
+                    <p>Working to protect natural habitats and promote sustainable living practices.</p>
+                    <div class="tags-container">
+                        <span class="tag">Environment</span>
+                        <span class="tag">Sustainability</span>
+                    </div>
+                    <button class="btn btn-outline">View Events</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>About Us</h3>
+                    <ul>
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Impact Stories</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>For Volunteers</h3>
+                    <ul>
+                        <li><a href="#">Find Opportunities</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li><a href="#">Track Hours</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>For Organizations</h3>
+                    <ul>
+                        <li><a href="#">Post Opportunities</a></li>
+                        <li><a href="#">Manage Events</a></li>
+                        <li><a href="#">Volunteer Management</a></li>
+                        <li><a href="#">Resources</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h4>Subscribe to our Newsletter</h4>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email" class="form-input">
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GreenHelp. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
