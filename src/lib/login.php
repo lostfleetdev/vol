@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -8,7 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = login($email, $password);
 
     if ($result === true) {
-        echo "<script>window.location.href = '../dashboard.html';</script>";
+        // Redirect to dashboard after successful login
+        header("Location: ../dashboard/user.php");
+        exit();
     } elseif ($result === "invalid_credentials") {
         echo "<script>alert('Incorrect email or password.'); window.history.back();</script>";
     } else {

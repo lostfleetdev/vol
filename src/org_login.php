@@ -1,9 +1,72 @@
+<?php
+session_start();
+
+// Organization login function
+function org_login($email, $password) {
+    $host = 'localhost';
+    $dbname = 'volunteers';
+    $username = 'assigner';
+    $dbpassword = 'Assignments_789';
+
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $dbpassword);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Look up organization by email
+        $stmt = $pdo->prepare("SELECT id, email, password, name FROM organizations WHERE email = ?");
+        $stmt->execute([$email]);
+
+        if ($stmt->rowCount() === 0) {
+            return "invalid_credentials"; // Email not found
+        }
+
+        $org = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verify password
+        if (password_verify($password, $org['password'])) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            
+            $_SESSION['org_id'] = $org['id'];
+            $_SESSION['org_email'] = $org['email'];
+            $_SESSION['org_name'] = $org['name'];
+            $_SESSION['org_logged_in'] = true;
+
+            return true; // Login successful
+        } else {
+            return "invalid_credentials"; // Password mismatch
+        }
+    } catch (PDOException $e) {
+        return "Database error: " . $e->getMessage();
+    }
+}
+
+// Handle form submission
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    $result = org_login($email, $password);
+
+    if ($result === true) {
+        header("Location: dashboard/organization.php");
+        exit();
+    } elseif ($result === "invalid_credentials") {
+        echo "<script>alert('Incorrect email or password.'); window.history.back();</script>";
+        exit();
+    } else {
+        echo "<script>alert(" . json_encode($result) . "); window.history.back();</script>";
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Vol.</title>
+    <title>Login | Vol. Organization</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -13,7 +76,7 @@
             <nav>
                 <a href="index.html"><div class="logo">Vol<span>.</span></div></a>
                 <div class="cta-buttons">
-                    <a href="signup.html" class="btn btn-outline">Sign Up</a>
+                    <a href="org_signup.html" class="btn btn-outline">Sign Up</a>
                 </div>
             </nav>
         </div>
@@ -23,13 +86,13 @@
         <div class="container">
             <div class="login-container">
                 <div class="login-header">
-                    <h2>Welcome Back</h2>
+                    <h2>Organization Login</h2>
                     <p>Please enter your credentials to login</p>
                 </div>
-                <form action="lib/login.php" method="post">
+                <form action="" method="post">
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+                        <label for="email">Organization Email</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="org@email.com" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -46,7 +109,7 @@
                 </form>
 
                 <div class="signup-link">
-                    Don't have an account? <a href="signup.html">Sign up</a>
+                    Don't have an account? <a href="org_signup.html">Sign up</a>
                 </div>
             </div>
         </div>
@@ -66,16 +129,6 @@
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h3>For Volunteers</h3>
-                    <ul>
-                        <li><a href="#">Browse Opportunities</a></li>
-                        <li><a href="#">Create Profile</a></li>
-                        <li><a href="#">Track Hours</a></li>
-                        <li><a href="#">Get Verified</a></li>
-                        <li><a href="#">Volunteer Resources</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
                     <h3>For Organizations</h3>
                     <ul>
                         <li><a href="#">Post Opportunities</a></li>
@@ -83,16 +136,6 @@
                         <li><a href="#">Organization Dashboard</a></li>
                         <li><a href="#">Success Stories</a></li>
                         <li><a href="#">NGO Resources</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>About</h3>
-                    <ul>
-                        <li><a href="#">Our Mission</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">

@@ -19,8 +19,8 @@
                     <a href="#blog">Blog</a>
                 </div>
                 <div class="nav-buttons">
-                    <a href="login.html"><button class="btn btn-outline">Log In</button></a>
-                    <a href="signup.html"><button class="btn btn-primary">Sign Up</button></a>
+                    <a href="login.php"><button class="btn btn-outline">Log In</button></a>
+                    <a href="signup.php"><button class="btn btn-primary">Sign Up</button></a>
                 </div>
             </nav>
         </div>
@@ -31,9 +31,9 @@
             <div class="hero-content">
                 <h1>Make a difference through volunteering</h1>
                 <p>Connect with meaningful opportunities that match your skills and passion. Help NGOs achieve their mission by contributing your time.</p>
-                <form action="search.php" method="post">    
+                <form action="search.php" method="get">    
                     <div class="search-bar">
-                        <input type="text" placeholder="Search opportunities by keyword, location or cause..." id="search" required>
+                        <input type="text" placeholder="Search opportunities by keyword, location or cause..." id="search" name="search" required>
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
                 </form>
@@ -102,7 +102,7 @@
             <h2>Ready to make a difference?</h2>
             <p>Join thousands of volunteers and organizations already connecting through Vol. Whether you want to give your time or find help for your cause, we're here to make the process simple and meaningful.</p>
             <div class="cta-buttons">
-                <a href="signup.html"><button class="btn btn-white">Sign Up as Volunteer</button></a>
+                <a href="signup.php"><button class="btn btn-white">Sign Up as Volunteer</button></a>
                 <button class="btn btn-outline-white">Register Organization</button>
             </div>
         </div>

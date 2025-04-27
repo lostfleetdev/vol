@@ -11,8 +11,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = register($fullname, $email, $password, $confirmPassword, $termsAccepted);
 
     if ($result === true) {
-        // ✅ Redirect to dashboard
-        echo "<script>window.location.href = '../dashboard.html';</script>";
+        // ✅ Redirect to login
+        echo "<script>window.location.href = '../login.html';</script>";
     } elseif ($result === "email_taken") {
         // ❌ Email already registered
         echo "<script>alert('Email already registered.'); window.history.back();</script>";

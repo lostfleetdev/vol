@@ -47,7 +47,7 @@ function login($email, $password) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Look up user by email
-        $stmt = $pdo->prepare("SELECT id, password FROM users WHERE email = ?");
+        $stmt = $pdo->prepare("SELECT id, email, password, fullname FROM users WHERE email = ?");
         $stmt->execute([$email]);
 
         if ($stmt->rowCount() === 0) {
@@ -58,6 +58,17 @@ function login($email, $password) {
 
         // Verify password
         if (password_verify($password, $user['password'])) {
+            // Start session if not already started
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            
+            // Set session variables
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_email'] = $user['email'];
+            $_SESSION['user_name'] = $user['fullname'];
+            $_SESSION['logged_in'] = true;
+            
             return true; // Login successful
         } else {
             return "invalid_credentials"; // Password mismatch
@@ -67,34 +78,69 @@ function login($email, $password) {
     }
 }
 
-function searchData($pdo, $query) {
+// Function to check if user is logged in
+function is_logged_in() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+}
+
+// Function to logout user
+function logout() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // Unset all session variables
+    $_SESSION = array();
+    
+    // Destroy the session
+    session_destroy();
+    
+    return true;
+}
+
+
+function searchData(PDO $pdo, string $searchTerm): array
+{
     $results = [
         'organizations' => [],
         'events' => []
     ];
 
-    $searchTerm = "%" . $query . "%";
+    $searchTerm = '%' . $searchTerm . '%'; // Add wildcards for LIKE clause
 
     // Search organizations
-    $orgStmt = $pdo->prepare("SELECT * FROM organizations 
-        WHERE name LIKE ? OR email LIKE ? OR address LIKE ?");
-    $orgStmt->execute([$searchTerm, $searchTerm, $searchTerm]);
-    $results['organizations'] = $orgStmt->fetchAll(PDO::FETCH_ASSOC);
+    $sqlOrganizations = "SELECT id, name, email, phone, address FROM organizations WHERE name LIKE :term OR email LIKE :term OR phone LIKE :term OR address LIKE :term";
+    $stmtOrganizations = $pdo->prepare($sqlOrganizations);
+    $stmtOrganizations->bindParam(':term', $searchTerm, PDO::PARAM_STR);
+    $stmtOrganizations->execute();
+    $results['organizations'] = $stmtOrganizations->fetchAll(PDO::FETCH_ASSOC);
 
-    // Search events (include organization name)
-    $eventStmt = $pdo->prepare("
-        SELECT events.*, organizations.name AS organization_name 
-        FROM events 
-        JOIN organizations ON events.organization_id = organizations.id 
-        WHERE events.title LIKE ? 
-           OR events.description LIKE ? 
-           OR events.location LIKE ? 
-           OR organizations.name LIKE ?
-    ");
-    $eventStmt->execute([$searchTerm, $searchTerm, $searchTerm, $searchTerm]);
-    $results['events'] = $eventStmt->fetchAll(PDO::FETCH_ASSOC);
+    // Search events (including the organization name for display)
+    $sqlEvents = "
+        SELECT
+            e.id,
+            e.title,
+            e.description,
+            e.location,
+            e.date,
+            e.time,
+            o.name AS organization_name
+        FROM
+            events e
+        JOIN
+            organizations o ON e.organization_id = o.id
+        WHERE
+            e.title LIKE :term OR e.description LIKE :term OR e.location LIKE :term OR o.name LIKE :term
+    ";
+    $stmtEvents = $pdo->prepare($sqlEvents);
+    $stmtEvents->bindParam(':term', $searchTerm, PDO::PARAM_STR);
+    $stmtEvents->execute();
+    $results['events'] = $stmtEvents->fetchAll(PDO::FETCH_ASSOC);
 
     return $results;
 }
-
 ?>
