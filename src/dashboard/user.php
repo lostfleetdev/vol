@@ -135,17 +135,16 @@ if (isset($_GET['search'])) {
 </head>
 <body>
     <header>
-        <nav>
-            <div class="container">
+        <div class="container">
+            <nav>
+                
                 <div class="logo">Vol<span>.</span></div>
-            </div>
-            <div>
-                <a href="logout.php" class="btn btn-outline">Logout</a>
-            </div>
-            <div>  
-                <p>  </p>
-            </div>
-        </nav>
+                
+                <div class="cta-buttons">
+                    <a href="logout.php" class="btn btn-outline">Logout</a>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <div class="container dashboard-container">

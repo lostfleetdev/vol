@@ -102,6 +102,21 @@ function logout() {
     return true;
 }
 
+function getConnection() {
+    $servername = "localhost"; // Replace with your server name
+    $username = "assigner"; // Replace with your database username
+    $password = "Assignments_789"; // Replace with your database password
+    $dbname = "volunteers"; // Replace with your database name
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    return $conn;
+}
 
 function searchData(PDO $pdo, string $searchTerm): array
 {
@@ -113,7 +128,7 @@ function searchData(PDO $pdo, string $searchTerm): array
     $searchTerm = '%' . $searchTerm . '%'; // Add wildcards for LIKE clause
 
     // Search organizations
-    $sqlOrganizations = "SELECT id, name, email, phone, address FROM organizations WHERE name LIKE :term OR email LIKE :term OR phone LIKE :term OR address LIKE :term";
+    $sqlOrganizations = "SELECT id, name, email, address FROM organizations WHERE name LIKE :term OR email LIKE :term OR address LIKE :term";
     $stmtOrganizations = $pdo->prepare($sqlOrganizations);
     $stmtOrganizations->bindParam(':term', $searchTerm, PDO::PARAM_STR);
     $stmtOrganizations->execute();
@@ -143,4 +158,33 @@ function searchData(PDO $pdo, string $searchTerm): array
 
     return $results;
 }
+
+function getEventDetails(PDO $pdo, int $eventId): array|false
+{
+    $sql = "
+        SELECT
+            e.id,
+            e.title,
+            e.description,
+            e.location,
+            e.date,
+            e.time,
+            o.name AS organization_name,
+            e.required,
+            e.status
+        FROM
+            events e
+        JOIN
+            organizations o ON e.organization_id = o.id
+        WHERE
+            e.id = :event_id
+    ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+    $stmt->execute();
+    $event = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $event ? $event : false; // Return false if no event found
+}
+
 ?>

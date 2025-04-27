@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-// Organization login function
-function org_login($email, $password) {
+// Your organization login function
+function organizationLogin($email, $password) {
     $host = 'localhost';
     $dbname = 'volunteers';
     $username = 'assigner';
@@ -20,18 +20,21 @@ function org_login($email, $password) {
             return "invalid_credentials"; // Email not found
         }
 
-        $org = $stmt->fetch(PDO::FETCH_ASSOC);
+        $organization = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Verify password
-        if (password_verify($password, $org['password'])) {
+        if (password_verify($password, $organization['password'])) {
+            // Start session if not already started
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
-            
-            $_SESSION['org_id'] = $org['id'];
-            $_SESSION['org_email'] = $org['email'];
-            $_SESSION['org_name'] = $org['name'];
+
+            // Set session variables for organization
+            $_SESSION['org_id'] = $organization['id'];
+            $_SESSION['org_email'] = $organization['email'];
+            $_SESSION['org_name'] = $organization['name'];
             $_SESSION['org_logged_in'] = true;
+            $_SESSION["loggedin"] = true;
 
             return true; // Login successful
         } else {
@@ -47,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    $result = org_login($email, $password);
+    $result = organizationLogin($email, $password);
 
     if ($result === true) {
         header("Location: dashboard/organization.php");
@@ -66,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Vol. Organization</title>
+    <title>Organization Login | Vol.</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -76,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <nav>
                 <a href="index.html"><div class="logo">Vol<span>.</span></div></a>
                 <div class="cta-buttons">
-                    <a href="org_signup.html" class="btn btn-outline">Sign Up</a>
+                    <a href="organization-signup.html" class="btn btn-outline">Organization Sign Up</a>
                 </div>
             </nav>
         </div>
@@ -87,11 +90,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <div class="login-container">
                 <div class="login-header">
                     <h2>Organization Login</h2>
-                    <p>Please enter your credentials to login</p>
+                    <p>Please enter your organization's email and password to login</p>
                 </div>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label for="email">Organization Email</label>
+                <form action="" method="post"> <div class="form-group">
+                        <label for="email">Email Address</label>
                         <input type="email" id="email" name="email" class="form-input" placeholder="org@email.com" required>
                     </div>
                     <div class="form-group">
@@ -109,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </form>
 
                 <div class="signup-link">
-                    Don't have an account? <a href="org_signup.html">Sign up</a>
+                    Not an organization account? <a href="login.php">Volunteer Login</a>
                 </div>
             </div>
         </div>
@@ -129,6 +131,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                 </div>
                 <div class="footer-col">
+                    <h3>For Volunteers</h3>
+                    <ul>
+                        <li><a href="#">Browse Opportunities</a></li>
+                        <li><a href="#">Create Profile</a></li>
+                        <li><a href="#">Track Hours</a></li>
+                        <li><a href="#">Get Verified</a></li>
+                        <li><a href="#">Volunteer Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
                     <h3>For Organizations</h3>
                     <ul>
                         <li><a href="#">Post Opportunities</a></li>
@@ -136,6 +148,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <li><a href="#">Organization Dashboard</a></li>
                         <li><a href="#">Success Stories</a></li>
                         <li><a href="#">NGO Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
