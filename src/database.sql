@@ -61,7 +61,3 @@ CREATE TABLE `event_registrations` (
   CONSTRAINT `event_registrations_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 );
 
-
-
-
-

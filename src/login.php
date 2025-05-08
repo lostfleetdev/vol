@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Your login function
 function login($email, $password) {
     $host = 'localhost';
     $dbname = 'volunteers';
@@ -17,7 +16,7 @@ function login($email, $password) {
         $stmt->execute([$email]);
 
         if ($stmt->rowCount() === 0) {
-            return "invalid_credentials"; // Email not found
+            return "invalid_credentials"; // mail not found
         }
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -29,7 +28,7 @@ function login($email, $password) {
                 session_start();
             }
             
-            // Set session variables
+            // session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_name'] = $user['fullname'];
@@ -37,14 +36,13 @@ function login($email, $password) {
             
             return true; // Login successful
         } else {
-            return "invalid_credentials"; // Password mismatch
+            return "invalid_credentials"; 
         }
     } catch (PDOException $e) {
         return "Database error: " . $e->getMessage();
     }
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -91,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <h2>Welcome Back</h2>
                     <p>Please enter your credentials to login</p>
                 </div>
-                <form action="" method="post"> <!-- important: action is "" to POST to same file -->
+                <form action="" method="post">
                     <div class="form-group">
                         <label for="email">Email Address</label>
                         <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>

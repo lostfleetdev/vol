@@ -1,34 +1,36 @@
 <?php
-require('lib/functions.php');
+require "lib/functions.php";
 
-$host = 'localhost';
-$dbname = 'volunteers';
-$username = 'assigner';
-$password = 'Assignments_789';
+$host = "localhost";
+$dbname = "volunteers";
+$username = "assigner";
+$password = "Assignments_789";
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo = new PDO(
+        "mysql:host=$host;dbname=$dbname;charset=utf8",
+        $username,
+        $password
+    );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Check for event ID in the query string
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-        $event_id = intval($_GET['id']);
+    if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
+        $event_id = intval($_GET["id"]);
 
         $event = getEventDetails($pdo, $event_id);
 
         if (!$event) {
-            // Event not found, redirect to a 404 page or show an error message
+            
             header("Location: error.php?message=Event not found"); // Create an error.php page
-            exit;
+            exit();
         }
     } else {
-        // No event ID provided, redirect to the events listing page
         header("Location: search.php"); //  redirect to the search page
-        exit;
+        exit();
     }
 } catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
-    exit;
+    exit();
 }
 ?>
 
@@ -37,7 +39,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($event['title']); ?> | vol.</title>
+    <title><?php echo htmlspecialchars($event["title"]); ?> | vol.</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -63,23 +65,41 @@ try {
     <section class="container" style="padding: 3rem 0;">
         <div class="event-details">
             <div class="section-heading">
-                <h2><?php echo htmlspecialchars($event['title']); ?></h2>
+                <h2><?php echo htmlspecialchars($event["title"]); ?></h2>
             </div>
             <div class="event-content">
                 <div class="event-image" style="margin-bottom: 2rem;">
-                    <img src="/api/placeholder/800/400" alt="<?php echo htmlspecialchars($event['title']); ?>">
+                    <img src="/api/placeholder/800/400" alt="<?php echo htmlspecialchars(
+                        $event["title"]
+                    ); ?>">
                 </div>
                 <div class="event-meta">
-                    <p><i class="fas fa-building"></i> Organization: <?php echo htmlspecialchars($event['organization_name']); ?></p>
-                    <p><i class="fas fa-map-marker-alt"></i> Location: <?php echo htmlspecialchars($event['location']); ?></p>
-                    <p><i class="fas fa-calendar-alt"></i> Date: <?php echo date('F j, Y', strtotime($event['date'])); ?></p>
-                    <p><i class="fas fa-clock"></i> Time: <?php echo date('h:i A', strtotime($event['time'])); ?></p>
-                     <p><i class="fas fa-users"></i> Volunteers Needed: <?php echo htmlspecialchars($event['required']); ?></p>
-                    <p>Status: <?php echo htmlspecialchars($event['status']); ?></p>
+                    <p><i class="fas fa-building"></i> Organization: <?php echo htmlspecialchars(
+                        $event["organization_name"]
+                    ); ?></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Location: <?php echo htmlspecialchars(
+                        $event["location"]
+                    ); ?></p>
+                    <p><i class="fas fa-calendar-alt"></i> Date: <?php echo date(
+                        "F j, Y",
+                        strtotime($event["date"])
+                    ); ?></p>
+                    <p><i class="fas fa-clock"></i> Time: <?php echo date(
+                        "h:i A",
+                        strtotime($event["time"])
+                    ); ?></p>
+                     <p><i class="fas fa-users"></i> Volunteers Needed: <?php echo htmlspecialchars(
+                         $event["required"]
+                     ); ?></p>
+                    <p>Status: <?php echo htmlspecialchars(
+                        $event["status"]
+                    ); ?></p>
                 </div>
                 <div class="event-description" style="margin-top: 2rem;">
                     <h3>Description</h3>
-                    <p><?php echo htmlspecialchars($event['description']); ?></p>
+                    <p><?php echo htmlspecialchars(
+                        $event["description"]
+                    ); ?></p>
                 </div>
                 <div class="event-registration" style="margin-top: 2rem;">
                      <a href="#" class="btn btn-primary apply-btn">Register Now</a>
@@ -131,7 +151,7 @@ try {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <?php echo date('Y'); ?> vol. All rights reserved.</p>
+                <p>&copy; <?php echo date("Y"); ?> vol. All rights reserved.</p>
             </div>
         </div>
     </footer>

@@ -13,7 +13,6 @@ try {
     $query = '';
     $results = ['organizations' => [], 'events' => []];
 
-    // Handle GET request for search
     if (isset($_GET['search'])) {
         $query = trim($_GET['search']);
         if (!empty($query)) {

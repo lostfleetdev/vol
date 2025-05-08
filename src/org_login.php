@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Your organization login function
 function organizationLogin($email, $password) {
     $host = 'localhost';
     $dbname = 'volunteers';
@@ -17,14 +16,14 @@ function organizationLogin($email, $password) {
         $stmt->execute([$email]);
 
         if ($stmt->rowCount() === 0) {
-            return "invalid_credentials"; // Email not found
+            return "invalid_credentials"; 
         }
 
         $organization = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Verify password
         if (password_verify($password, $organization['password'])) {
-            // Start session if not already started
+
             if (session_status() === PHP_SESSION_NONE) {
                 session_start();
             }
@@ -38,14 +37,13 @@ function organizationLogin($email, $password) {
 
             return true; // Login successful
         } else {
-            return "invalid_credentials"; // Password mismatch
+            return "invalid_credentials"; 
         }
     } catch (PDOException $e) {
         return "Database error: " . $e->getMessage();
     }
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';

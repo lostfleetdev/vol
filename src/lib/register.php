@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($result === true) {
         // ✅ Redirect to login
-        echo "<script>window.location.href = '../login.html';</script>";
+        echo "<script>window.location.href = '../login.php';</script>";
     } elseif ($result === "email_taken") {
         // ❌ Email already registered
         echo "<script>alert('Email already registered.'); window.history.back();</script>";

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Organization signup function
 function org_signup($name, $email, $password, $phone = null, $address = null) {
     $host = 'localhost';
     $dbname = 'volunteers';
@@ -12,17 +11,16 @@ function org_signup($name, $email, $password, $phone = null, $address = null) {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $dbpassword);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Check if email already exists
+
         $stmt = $pdo->prepare("SELECT id FROM organizations WHERE email = ?");
         $stmt->execute([$email]);
         if ($stmt->rowCount() > 0) {
-            return "email_exists"; // Email already taken
+            return "email_exists"; 
         }
 
         // Hash password
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // Insert organization
         $stmt = $pdo->prepare("INSERT INTO organizations (name, email, password, phone, address) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$name, $email, $hashed_password, $phone, $address]);
 
@@ -32,7 +30,6 @@ function org_signup($name, $email, $password, $phone = null, $address = null) {
     }
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST['name'] ?? '';
     $email = $_POST['email'] ?? '';
